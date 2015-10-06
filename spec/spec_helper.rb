@@ -1,3 +1,5 @@
+require 'factory_girl_rails'
+require 'spree_ups_address_validation/factories'
 # Run Coverage report
 require 'simplecov'
 SimpleCov.start do
