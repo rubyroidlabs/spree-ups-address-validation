@@ -13,7 +13,8 @@ module Spree
         elsif ship_address.ups_response.ambiguous?
           errors.add(:base, Spree.t(:ups_address_ambiguous))
         elsif ship_address.ups_suggestions.any?
-          errors.add(:base, Spree.t(:ups_address_valid))
+          # do nothing
+          # errors.add(:base, Spree.t(:ups_address_valid))
         end
       end
 
