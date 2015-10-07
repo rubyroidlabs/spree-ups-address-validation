@@ -13,8 +13,13 @@ module Spree
         elsif ship_address.ups_response.ambiguous?
           errors.add(:base, Spree.t(:ups_address_ambiguous))
         elsif ship_address.ups_suggestions.any?
-          # do nothing
-          # errors.add(:base, Spree.t(:ups_address_valid))
+          suggested = ship_address.ups_suggestions.first
+          error_message = 'Looks like you did some misspellings. Check the folowing fields: <br>'
+          error_message << "check address1, maybe you mean #{suggested.street1}<br>" unless ship_address.address1 == suggested.street1
+          error_message << "check city, maybe you mean #{suggested.city}<br>" unless ship_address.city == suggested.city
+          error_message << "check state, maybe you mean #{suggested.state}<br>" unless ship_address.state.abbr == suggested.state
+          error_message << "check zip, maybe you mean #{suggested.zip}<br>" unless ship_address.zipcode == suggested.zip
+          errors.add(:base, error_message)
         end
       end
 
