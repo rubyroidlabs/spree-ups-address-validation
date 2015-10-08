@@ -18,7 +18,7 @@ module Spree
           error_message << "check address1-field, maybe you mean #{suggested.street1}<br>" unless ship_address.address1 == suggested.street1
           error_message << "check city-field, maybe you mean #{suggested.city}<br>" unless ship_address.city == suggested.city
           error_message << "check state-field, maybe you mean #{suggested.state}<br>" unless ship_address.state.abbr == suggested.state
-          error_message << "check zip-field, maybe you mean #{suggested.zip}<br>" unless ship_address.zipcode == suggested.zip || ship_address.zipcode == [suggested.zip, suggested.zip_extended].join('-')
+          error_message << "check zip-field, maybe you mean #{suggested.zip}-#{suggested.zip_extended}<br>" unless ship_address.zipcode == [suggested.zip, suggested.zip_extended].join('-')
           errors.add(:base, error_message)
         end
       end
