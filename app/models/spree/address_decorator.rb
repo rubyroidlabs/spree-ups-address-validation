@@ -19,7 +19,7 @@ module Spree
         && (s.street2.blank? && address2.blank? || s.street2 == address2) \
         && s.city == city \
         && s.state == state_text \
-        && [s.zip, s.zip_extended].join('-') == zipcode
+        && s.zip == zipcode
       end
       @ups_suggestions
     end
