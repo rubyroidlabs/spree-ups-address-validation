@@ -15,7 +15,7 @@ module Spree
         elsif ship_address.ups_suggestions.any?
           suggested = ship_address.ups_suggestions.first
           error_message = 'We found some errors in your information. Please check the following fields: <br>'
-          error_message << "Address1: Did you mean #{suggested.street1}<br>" unless ship_address.address1 == suggested.street1
+          error_message << "Address1: Did you mean #{suggested.street1}<br>" unless ship_address.address1.gsub('.','') == suggested.street1
           error_message << "Address2: Did you mean #{suggested.street2}<br>" if ship_address.address2.present? && ship_address.address2 != suggested.street2
           error_message << "City: Did you mean #{suggested.city}<br>" unless ship_address.city == suggested.city
           error_message << "State: Did you mean #{suggested.state}<br>" unless ship_address.state.abbr == suggested.state
