@@ -16,7 +16,7 @@ module Spree
       # Strip out any suggestions which match our current address
       @ups_suggestions ||= ups_response.suggestions.reject do |s|
         s.street1 == address1.gsub('.', '') \
-        && (s.street2.blank? && address2.blank? || s.street2 == address2) \
+        && (s.street2.blank? && address2.blank? || prepare_address2(s.street2) == prepare_address2(address2)) \
         && s.city == city \
         && s.state == state_text \
         && s.zip == zipcode
@@ -42,6 +42,13 @@ module Spree
         )
         validator = AddressValidator::Validator.new
         validator.validate(address)
+      end
+
+      def prepare_address2(address2)
+        if address2.present?
+          result = address2
+          result.gsub('APT', '').gsub('APARTMENT', '').gsub('#', '').gsub(' ', '')
+        end
       end
   end
 end
